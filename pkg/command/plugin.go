@@ -1,22 +1,30 @@
 package command
 
 import (
-	"github.com/hashicorp/go-plugin"
-	"github.com/oclaussen/dodo/pkg/plugin/command"
+	"github.com/dodo-cli/dodo-core/pkg/plugin"
+	"github.com/dodo-cli/dodo-core/pkg/plugin/command"
 	"github.com/spf13/cobra"
 )
+
+const name = "daemon"
 
 type Command struct {
 	cmd *cobra.Command
 }
 
-func NewPlugin() plugin.Plugin {
-	return &command.Plugin{Impl: &Command{}}
+func (p *Command) Type() plugin.Type {
+	return command.Type
 }
 
-func (p *Command) GetCommand() (*cobra.Command, error) {
-	if p.cmd == nil {
-		p.cmd = NewDaemonCommand()
-	}
-	return p.cmd, nil
+func (p *Command) Init() error {
+	p.cmd = NewDaemonCommand()
+	return nil
+}
+
+func (p *Command) Name() string {
+	return name
+}
+
+func (p *Command) GetCobraCommand() *cobra.Command {
+	return p.cmd
 }

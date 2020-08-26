@@ -1,8 +1,6 @@
 package command
 
 import (
-	"github.com/oclaussen/dodo/pkg/config"
-	"github.com/oclaussen/dodo/pkg/container"
 	"github.com/spf13/cobra"
 )
 
@@ -26,17 +24,7 @@ func NewDaemonStartCommand() *cobra.Command {
 		Short: "run a backdrop in daemon mode",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			conf, err := config.LoadBackdrop(args[0])
-			if err != nil {
-				return err
-			}
-
-			c, err := container.NewContainer(conf, config.LoadAuthConfig(), true)
-			if err != nil {
-				return err
-			}
-
-			return c.Run()
+			return RunContainer(args[0])
 		},
 	}
 }
@@ -47,17 +35,7 @@ func NewDaemonStopCommand() *cobra.Command {
 		Short: "stop a daemon backdrop",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			conf, err := config.LoadBackdrop(args[0])
-			if err != nil {
-				return err
-			}
-
-			c, err := container.NewContainer(conf, config.LoadAuthConfig(), true)
-			if err != nil {
-				return err
-			}
-
-			return c.Stop()
+			return StopContainer(args[0])
 		},
 	}
 }
@@ -68,21 +46,7 @@ func NewDaemonRestartCommand() *cobra.Command {
 		Short: "restart a daemon backdrop",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			conf, err := config.LoadBackdrop(args[0])
-			if err != nil {
-				return err
-			}
-
-			c, err := container.NewContainer(conf, config.LoadAuthConfig(), true)
-			if err != nil {
-				return err
-			}
-
-			if err := c.Stop(); err != nil {
-				return err
-			}
-
-			return c.Run()
+			return RestartContainer(args[0])
 		},
 	}
 }
