@@ -3,9 +3,7 @@ module github.com/dodo-cli/dodo-daemon
 go 1.15
 
 require (
-	github.com/dodo-cli/dodo-core v0.0.0-20200821135148-cb332de21be2
-	github.com/hashicorp/go-hclog v0.14.1
-	github.com/moby/term v0.0.0-20200611042045-63b9a826fb74
-	github.com/spf13/cobra v1.0.0
-	golang.org/x/net v0.0.0-20190522155817-f3200d17e092
+	github.com/dodo-cli/dodo-core v0.0.0-20201125174747-1bda489d290a
+	github.com/hashicorp/go-hclog v0.15.0
+	github.com/spf13/cobra v1.1.1
 )
