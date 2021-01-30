@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 
+	api "github.com/dodo-cli/dodo-core/api/v1alpha1"
 	"github.com/dodo-cli/dodo-core/pkg/plugin"
 	"github.com/dodo-cli/dodo-core/pkg/plugin/configuration"
 	"github.com/dodo-cli/dodo-core/pkg/plugin/runtime"
@@ -31,13 +32,6 @@ func RunContainer(name string) error {
 		return err
 	}
 
-	for _, p := range plugin.GetPlugins(configuration.Type.String()) {
-		err := p.(configuration.Configuration).Provision(containerID)
-		if err != nil {
-			log.Default().Warn("could not provision", "error", err)
-		}
-	}
-
 	return rt.StartContainer(containerID)
 }
 
@@ -50,7 +44,7 @@ func StopContainer(name string) error {
 		return err
 	}
 
-	return rt.RemoveContainer(config.ContainerName)
+	return rt.DeleteContainer(config.ContainerName)
 }
 
 func RestartContainer(name string) error {
@@ -62,7 +56,7 @@ func RestartContainer(name string) error {
 		return err
 	}
 
-	if err := rt.RemoveContainer(config.ContainerName); err != nil {
+	if err := rt.DeleteContainer(config.ContainerName); err != nil {
 		return err
 	}
 
@@ -78,18 +72,15 @@ func RestartContainer(name string) error {
 		return err
 	}
 
-	for _, p := range plugin.GetPlugins(configuration.Type.String()) {
-		err := p.(configuration.Configuration).Provision(containerID)
-		if err != nil {
-			log.Default().Warn("could not provision", "error", err)
-		}
-	}
-
 	return rt.StartContainer(containerID)
 }
 
 func GetRuntime() (runtime.ContainerRuntime, error) {
-	for _, p := range plugin.GetPlugins(runtime.Type.String()) {
+	for n, p := range plugin.GetPlugins(runtime.Type.String()) {
+		if name != "" && name != n {
+			continue
+		}
+
 		if rt, ok := p.(runtime.ContainerRuntime); ok {
 			return rt, nil
 		}
@@ -98,17 +89,25 @@ func GetRuntime() (runtime.ContainerRuntime, error) {
 	return nil, fmt.Errorf("could not find container runtime: %w", plugin.ErrNoValidPluginFound)
 }
 
-func GetConfig(name string) *types.Backdrop {
-	config := &types.Backdrop{Name: name, Entrypoint: &types.Entrypoint{}}
+func GetConfig(name string) *api.Backdrop {
+	config := &api.Backdrop{Name: name, Entrypoint: &api.Entrypoint{}}
 
 	for _, p := range plugin.GetPlugins(configuration.Type.String()) {
-		conf, err := p.(configuration.Configuration).UpdateConfiguration(config)
+		info, err := p.PluginInfo()
+		if err != nil {
+			log.L().Warn("could not read plugin info")
+			continue
+		}
+
+		log.L().Debug("Fetching configuration from plugin", "name", info.Name)
+
+		conf, err := p.(configuration.Configuration).GetBackdrop(name)
 		if err != nil {
 			log.L().Warn("could not get config", "error", err)
 			continue
 		}
 
-		config.Merge(conf)
+		types.Merge(config, conf)
 	}
 
 	log.L().Debug("assembled configuration", "backdrop", config)
