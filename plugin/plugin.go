@@ -9,13 +9,12 @@ import (
 
 func RunMe() int {
 	log.SetDefault(log.New(appconfig.GetLoggerOptions()))
-	p := &command.Command{}
-	if err := p.GetCobraCommand().Execute(); err != nil {
+	if err := command.New().GetCobraCommand().Execute(); err != nil {
 		return 1
 	}
 	return 0
 }
 
 func IncludeMe() {
-	dodo.IncludePlugins(&command.Command{})
+	dodo.IncludePlugins(command.New())
 }

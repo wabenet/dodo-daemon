@@ -15,7 +15,7 @@ func RunContainer(name string) error {
 	config := GetConfig(name)
 	config.ContainerName = config.Name
 
-	rt, err := GetRuntime()
+	rt, err := GetRuntime(config.Runtime)
 	if err != nil {
 		return err
 	}
@@ -39,7 +39,7 @@ func StopContainer(name string) error {
 	config := GetConfig(name)
 	config.ContainerName = config.Name
 
-	rt, err := GetRuntime()
+        rt, err := GetRuntime(config.Runtime)
 	if err != nil {
 		return err
 	}
@@ -51,7 +51,7 @@ func RestartContainer(name string) error {
 	config := GetConfig(name)
 	config.ContainerName = config.Name
 
-	rt, err := GetRuntime()
+        rt, err := GetRuntime(config.Runtime)
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func RestartContainer(name string) error {
 	return rt.StartContainer(containerID)
 }
 
-func GetRuntime() (runtime.ContainerRuntime, error) {
+func GetRuntime(name string) (runtime.ContainerRuntime, error) {
 	for n, p := range plugin.GetPlugins(runtime.Type.String()) {
 		if name != "" && name != n {
 			continue
