@@ -78,8 +78,8 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumC
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954 h1:RMLoZVzv4GliuWafOuPuQDKSm1SJph7uCRnnS61JAn4=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
-github.com/dodo-cli/dodo-core v0.0.0-20210318162438-a68f0193ede5 h1:Hbh/Z6iAG+PStyWp9XZ/qbAxT/1UH7UG8GOSDPrg9jQ=
-github.com/dodo-cli/dodo-core v0.0.0-20210318162438-a68f0193ede5/go.mod h1:DjkBThYYIgIibnBRT20ddF7PmwXJAQN/ISn7lUVQCZE=
+github.com/dodo-cli/dodo-core v0.0.0-20210419152444-ac57ff4ad07d h1:LKhJQFLuOLhwOk2P/wcWkEXZfr3C3jVXFHnF8h/dSOc=
+github.com/dodo-cli/dodo-core v0.0.0-20210419152444-ac57ff4ad07d/go.mod h1:DjkBThYYIgIibnBRT20ddF7PmwXJAQN/ISn7lUVQCZE=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4 h1:rEvIZUSZ3fx39WIi3JkQqQBitGwpELBIYWeBVh6wn+E=
