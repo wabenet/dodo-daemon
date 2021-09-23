@@ -1,10 +1,11 @@
 package command
 
 import (
+	"github.com/dodo-cli/dodo-core/pkg/plugin"
 	"github.com/spf13/cobra"
 )
 
-func NewDaemonCommand() *cobra.Command {
+func New(m plugin.Manager) *Command {
 	cmd := &cobra.Command{
 		Use:              "daemon",
 		Short:            "run backdrops in daemon mode",
@@ -12,41 +13,42 @@ func NewDaemonCommand() *cobra.Command {
 		SilenceUsage:     true,
 	}
 
-	cmd.AddCommand(NewDaemonStartCommand())
-	cmd.AddCommand(NewDaemonStopCommand())
-	cmd.AddCommand(NewDaemonRestartCommand())
-	return cmd
+	cmd.AddCommand(NewDaemonStartCommand(m))
+	cmd.AddCommand(NewDaemonStopCommand(m))
+	cmd.AddCommand(NewDaemonRestartCommand(m))
+
+	return &Command{cmd: cmd}
 }
 
-func NewDaemonStartCommand() *cobra.Command {
+func NewDaemonStartCommand(m plugin.Manager) *cobra.Command {
 	return &cobra.Command{
 		Use:   "start",
 		Short: "run a backdrop in daemon mode",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return RunContainer(args[0])
+			return RunContainer(m, args[0])
 		},
 	}
 }
 
-func NewDaemonStopCommand() *cobra.Command {
+func NewDaemonStopCommand(m plugin.Manager) *cobra.Command {
 	return &cobra.Command{
 		Use:   "stop",
 		Short: "stop a daemon backdrop",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return StopContainer(args[0])
+			return StopContainer(m, args[0])
 		},
 	}
 }
 
-func NewDaemonRestartCommand() *cobra.Command {
+func NewDaemonRestartCommand(m plugin.Manager) *cobra.Command {
 	return &cobra.Command{
 		Use:   "restart",
 		Short: "restart a daemon backdrop",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return RestartContainer(args[0])
+			return RestartContainer(m, args[0])
 		},
 	}
 }

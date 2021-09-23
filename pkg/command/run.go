@@ -3,14 +3,17 @@ package command
 import (
 	api "github.com/dodo-cli/dodo-core/api/v1alpha2"
 	"github.com/dodo-cli/dodo-core/pkg/core"
+	"github.com/dodo-cli/dodo-core/pkg/plugin"
+	"github.com/dodo-cli/dodo-core/pkg/plugin/configuration"
+	"github.com/dodo-cli/dodo-core/pkg/plugin/runtime"
 )
 
-func RunContainer(name string) error {
-	config := core.AssembleBackdropConfig(name, &api.Backdrop{})
+func RunContainer(m plugin.Manager, name string) error {
+	config := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
 	config.ContainerName = config.Name
 
 	if len(config.ImageId) == 0 {
-		imageID, err := core.BuildByName(config.BuildInfo)
+		imageID, err := core.BuildByName(m, config.BuildInfo)
 		if err != nil {
 			return err
 		}
@@ -18,7 +21,7 @@ func RunContainer(name string) error {
 		config.ImageId = imageID
 	}
 
-	rt, err := core.GetRuntime(config.Runtime)
+	rt, err := runtime.GetByName(m, config.Runtime)
 	if err != nil {
 		return err
 	}
@@ -38,11 +41,11 @@ func RunContainer(name string) error {
 	return rt.StartContainer(containerID)
 }
 
-func StopContainer(name string) error {
-	config := core.AssembleBackdropConfig(name, &api.Backdrop{})
+func StopContainer(m plugin.Manager, name string) error {
+	config := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
 	config.ContainerName = config.Name
 
-	rt, err := core.GetRuntime(config.Runtime)
+	rt, err := runtime.GetByName(m, config.Runtime)
 	if err != nil {
 		return err
 	}
@@ -50,11 +53,11 @@ func StopContainer(name string) error {
 	return rt.DeleteContainer(config.ContainerName)
 }
 
-func RestartContainer(name string) error {
-	config := core.AssembleBackdropConfig(name, &api.Backdrop{})
+func RestartContainer(m plugin.Manager, name string) error {
+	config := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
 	config.ContainerName = config.Name
 
-	rt, err := core.GetRuntime(config.Runtime)
+	rt, err := runtime.GetByName(m, config.Runtime)
 	if err != nil {
 		return err
 	}
