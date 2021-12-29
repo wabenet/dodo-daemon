@@ -12,7 +12,11 @@ import (
 )
 
 func RunContainer(m plugin.Manager, name string) error {
-	config := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
+	config, err := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
+	if err != nil {
+		return err
+	}
+
 	config.ContainerName = config.Name
 
 	if len(config.ImageId) == 0 {
@@ -45,7 +49,11 @@ func RunContainer(m plugin.Manager, name string) error {
 }
 
 func StopContainer(m plugin.Manager, name string) error {
-	config := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
+	config, err := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
+	if err != nil {
+		return err
+	}
+
 	config.ContainerName = config.Name
 
 	rt, err := runtime.GetByName(m, config.Runtime)
@@ -57,7 +65,11 @@ func StopContainer(m plugin.Manager, name string) error {
 }
 
 func RestartContainer(m plugin.Manager, name string) error {
-	config := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
+	config, err := configuration.AssembleBackdropConfig(m, name, &api.Backdrop{})
+	if err != nil {
+		return err
+	}
+
 	config.ContainerName = config.Name
 
 	rt, err := runtime.GetByName(m, config.Runtime)
