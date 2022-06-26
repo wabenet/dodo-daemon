@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/dodo-cli/dodo-daemon/pkg/plugin"
+	"github.com/wabenet/dodo-daemon/pkg/plugin"
 )
 
 func main() {

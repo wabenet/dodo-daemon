@@ -1,9 +1,9 @@
 package plugin
 
 import (
-	"github.com/dodo-cli/dodo-core/pkg/plugin"
-	"github.com/dodo-cli/dodo-core/pkg/plugin/command"
-	impl "github.com/dodo-cli/dodo-daemon/internal/plugin/command"
+	"github.com/wabenet/dodo-core/pkg/plugin"
+	"github.com/wabenet/dodo-core/pkg/plugin/command"
+	impl "github.com/wabenet/dodo-daemon/internal/plugin/command"
 )
 
 func RunMe() int {

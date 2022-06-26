@@ -30,7 +30,7 @@ Use "dodo daemon [command] --help" for more information about a command.
 ## installation
 
 Install this plugin by downloading the correct file for your system from the
-[releases page](https://github.com/dodo-cli/dodo-daemon/releases),
+[releases page](https://github.com/wabenet/dodo-daemon/releases),
 then copy it into the dodo plugin directory (`${HOME}/.dodo/plugins`).
 
 Alternatively, if you want to compile your own dodo distribution, you can add
@@ -38,7 +38,7 @@ this plugin with the following generate config:
 
 ```yaml
 plugins:
-  - import: github.com/dodo-cli/dodo-daemon/plugin
+  - import: github.com/wabenet/dodo-daemon/pkg/plugin
 ```
 
 ## license & authors

@@ -1,8 +1,8 @@
 package command
 
 import (
-	"github.com/dodo-cli/dodo-core/pkg/plugin"
 	"github.com/spf13/cobra"
+	"github.com/wabenet/dodo-core/pkg/plugin"
 )
 
 func New(m plugin.Manager) *Command {
