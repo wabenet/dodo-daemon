@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/spf13/cobra v1.1.1
-	github.com/wabenet/dodo-core v0.6.0
+	github.com/wabenet/dodo-core v0.7.0
 )
 
 require (
