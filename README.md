@@ -1,3 +1,9 @@
+![release](https://img.shields.io/github/v/release/wabenet/dodo-daemon?sort=semver)
+![build](https://img.shields.io/github/workflow/status/wabenet/dodo-daemon/CI?logo=github)
+![codecov](https://img.shields.io/codecov/c/github/wabenet/dodo-daemon?logo=codecov)
+![codeclimate](https://img.shields.io/codeclimate/maintainability/wabenet/dodo-daemon?logo=codeclimate)
+![license](https://img.shields.io/github/license/wabenet/dodo-daemon)
+
 # dodo daemon plugin
 
 Adds support for long-running dodo backdrops ("daemons").
@@ -44,7 +50,7 @@ plugins:
 ## license & authors
 
 ```text
-Copyright 2021 Ole Claussen
+Copyright 2022 Ole Claussen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -3,7 +3,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: dodo-daemon
-  description: Adds support for long-running backdrops to dodo
+  description: Adds support for long-running dodo backdrops ("daemons").
 
 spec:
   type: library
